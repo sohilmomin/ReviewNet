@@ -28,7 +28,7 @@ export const reviewsFailed = (errMess) => ({
 
 export const fetchReviews = () => (dispatch) => {
     dispatch(reviewsLoading())
-    return fetch(`/reviews${window.location.search}`)
+    return fetch(baseUrl + `reviews${window.location.search}`)
         .then(response => {
             if (response.ok) {
                 return response
@@ -58,7 +58,7 @@ export const updateReview = (review) => ({
 
 export const postLike = (reviewId) => (dispatch) => {
     console.log(localStorage.getItem('jwt'))
-    return fetch('reviews/likes/' + reviewId, {
+    return fetch(baseUrl + 'reviews/likes/' + reviewId, {
         method: 'PUT',
         headers: {
             "Authorization": "Bearer " + localStorage.getItem('jwt'),
@@ -90,7 +90,7 @@ export const postLike = (reviewId) => (dispatch) => {
 
 
 export const postDislike = (reviewId) => (dispatch) => {
-    return fetch('reviews/dislikes/' + reviewId, {
+    return fetch(baseUrl + 'reviews/dislikes/' + reviewId, {
         method: 'PUT',
         headers: {
             "Authorization": "Bearer " + localStorage.getItem('jwt'),
@@ -128,7 +128,7 @@ export const postReview = (rating, tags, review, product) => (dispatch) => {
         product
     }
     console.log(newReview);
-    return fetch('reviews', {
+    return fetch(baseUrl + 'reviews', {
         method: 'POST',
         body: JSON.stringify(newReview),
         headers: {
@@ -169,7 +169,7 @@ export const editReview = (reviewId, rating, tags, review, product) => (dispatch
         product
     }
     console.log(newReview);
-    return fetch('reviews/' + reviewId, {
+    return fetch(baseUrl + 'reviews/' + reviewId, {
         method: 'PUT',
         body: JSON.stringify(newReview),
         headers: {
@@ -203,7 +203,7 @@ export const editReview = (reviewId, rating, tags, review, product) => (dispatch
 }
 export const deleteReview = (reviewId) => (dispatch) => {
     console.log(localStorage.getItem('jwt'))
-    return fetch('reviews/' + reviewId, {
+    return fetch(baseUrl + 'reviews/' + reviewId, {
         method: 'DELETE',
         headers: {
             "Authorization": "Bearer " + localStorage.getItem('jwt'),
@@ -258,7 +258,7 @@ export const productsFailed = (errMess) => ({
 export const fetchProducts = () => (dispatch) => {
     dispatch(productsLoading(true))
     console.log(window.location.search)
-    return fetch(`/products${window.location.search}`)
+    return fetch(baseUrl + `products${window.location.search}`)
         .then(response => {
             if (response.ok) {
                 return response
@@ -303,7 +303,7 @@ export const postProduct = (productName, price, catogery, subCatogery, descripti
             newProduct.pic = data.url
         })
         .then(data => {
-            fetch('products', {
+            fetch(baseUrl + 'products', {
                 method: 'POST',
                 body: JSON.stringify(newProduct),
                 headers: {
@@ -358,7 +358,7 @@ export const editProduct = (productId, productName, price, catogery, subCatogery
             newProduct.pic = data.url
         })
         .then(data => {
-            fetch('products/' + productId, {
+            fetch(baseUrl + 'products/' + productId, {
                 method: 'PUT',
                 body: JSON.stringify(newProduct),
                 headers: {
@@ -408,7 +408,7 @@ export const signUp = (name, email, password, fullname) => (dispatch) => {
         password,
         fullname
     }
-    return fetch('users/signup', {
+    return fetch(baseUrl + 'users/signup', {
         method: "POST",
         headers: {
             "Content-Type": "Application/json"
@@ -444,7 +444,7 @@ export const signIn = (email, password) => (dispatch) => {
         password
     }
     console.log('reached at actionCreater' + loginUser)
-    return fetch('users/signin', {
+    return fetch(baseUrl + 'users/signin', {
         method: "POST",
         headers: {
             "Content-Type": "Application/json"
@@ -478,7 +478,7 @@ export const signIn = (email, password) => (dispatch) => {
         })
 }
 export const fetchUser = () => (dispatch) => {
-    return fetch('users/userdata', {
+    return fetch(baseUrl + 'users/userdata', {
         method: "GET",
         headers: {
             "Content-Type": "Application/json",
@@ -541,7 +541,7 @@ export const clearCompany = () => ({
 })
 
 export const fetchCompany = () => (dispatch) => {
-    return fetch('company/companydata', {
+    return fetch(baseUrl + 'company/companydata', {
         method: "GET",
         headers: {
             "Content-Type": "Application/json",
@@ -578,7 +578,7 @@ export const companySignUp = (name, email, password, fullname) => (dispatch) => 
         password,
         fullname
     }
-    return fetch('/company/signup', {
+    return fetch(baseUrl + 'company/signup', {
         method: "POST",
         headers: {
             "Content-Type": "Application/json"
@@ -615,7 +615,7 @@ export const companySignIn = (email, password) => (dispatch) => {
         password
     }
     console.log('reached at actionCreater' + loginCompany)
-    return fetch('/company/signin', {
+    return fetch(baseUrl + 'company/signin', {
         method: "POST",
         headers: {
             "Content-Type": "Application/json"
